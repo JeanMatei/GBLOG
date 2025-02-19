@@ -1,6 +1,8 @@
 package service;
 
-import dao.EntregaDAO;
+//import dao.EntregaDAO;
+
+import java.util.Scanner;
 
 public class EntregaService {
 
