@@ -49,4 +49,9 @@ public class Filial {
                 "| Cidade: " + cidade  +
                 "| Estado: " + estado;
     }
+
+    @Override
+    public String getCodigoUnico() {
+        return id.toString();
+    }
 }
