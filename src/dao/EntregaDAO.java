@@ -32,7 +32,7 @@ public class EntregaDAO implements DAO<Entrega> {
             while (resultado.next()) {
                 Entrega entrega = new Entrega(
                         resultado.getString("id"),
-                        resultado.getString(),
+                        resultado.getString()
                         );
                 entregas.add(entrega);
             }
