@@ -114,5 +114,4 @@ public class Veiculo {
                 "| KM: " + quilometragem +
                 "| Manutenção:" + manutencao;
     }
-
 }
