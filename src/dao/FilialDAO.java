@@ -10,7 +10,6 @@ public class FilialDAO implements DAO<Filial> {
 
 
     public ArrayList<Filial> selecionar() throws Exception {
-        Filial filial;
         try {
             String sql = "SELECT" +
                     "id_filial, " +
@@ -22,7 +21,7 @@ public class FilialDAO implements DAO<Filial> {
 
             ArrayList<Filial> filials = new ArrayList<>();
             while (resultado.next()) {
-                filial = new Filial(
+              Filial filial = new Filial(
                         resultado.getLong("id"),
                         resultado.getString("cidade"),
                         resultado.getString("estado")
