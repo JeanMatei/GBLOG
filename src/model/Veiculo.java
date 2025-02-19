@@ -1,39 +1,39 @@
-package Model;
+package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-public class Veiculo {
+public class Veiculo implements Identificavel {
 
    private String placa;
    private Double capacidade;
    private String modelo;
-   private String tpveiculo; //tipo de Veículo
-   private LocalDateTime anofb;
+   private String tpVeiculo; //tipo de Veículo
+   private LocalDate ano;
    private Boolean disponivel;
    private Double quilometragem;
-   private LocalDateTime manutencao;
+   private LocalDate manutencao;
 
     // Construtor vazio
     public Veiculo() {}
 
     // Construtor sem Placa
-    public Veiculo(Double capacidade, String modelo, String tpveiculo, LocalDateTime anofb, Boolean disponivel, Double quilometragem, LocalDateTime manutencao) {
+    public Veiculo(Double capacidade, String modelo, String tpveiculo, LocalDate anofb, Boolean disponivel, Double quilometragem, LocalDate manutencao) {
         this.capacidade = capacidade;
         this.modelo = modelo;
-        this.tpveiculo = tpveiculo;
-        this.anofb = anofb;
+        this.tpVeiculo = tpveiculo;
+        this.ano = anofb;
         this.disponivel = disponivel;
         this.quilometragem = quilometragem;
         this.manutencao = manutencao;
     }
 
     // Construtor Completo
-    public Veiculo(String placa, Double capacidade, String modelo, String tpveiculo, LocalDateTime anofb, Boolean disponivel, Double quilometragem, LocalDateTime manutencao) {
+    public Veiculo(String placa, Double capacidade, String modelo, String tpveiculo, LocalDate anofb, Boolean disponivel, Double quilometragem, LocalDate manutencao) {
         this.placa = placa;
         this.capacidade = capacidade;
         this.modelo = modelo;
-        this.tpveiculo = tpveiculo;
-        this.anofb = anofb;
+        this.tpVeiculo = tpveiculo;
+        this.ano = anofb;
         this.disponivel = disponivel;
         this.quilometragem = quilometragem;
         this.manutencao = manutencao;
@@ -64,19 +64,19 @@ public class Veiculo {
     }
 
     public String getTpveiculo() {
-        return tpveiculo;
+        return tpVeiculo;
     }
 
     public void setTpveiculo(String tpveiculo) {
-        this.tpveiculo = tpveiculo;
+        this.tpVeiculo = tpveiculo;
     }
 
-    public LocalDateTime getAnofb() {
-        return anofb;
+    public LocalDate getAnofb() {
+        return ano;
     }
 
-    public void setAnofb(LocalDateTime anofb) {
-        this.anofb = anofb;
+    public void setAnofb(LocalDate anofb) {
+        this.ano = anofb;
     }
 
     public Boolean getDisponivel() {
@@ -95,23 +95,28 @@ public class Veiculo {
         this.quilometragem = quilometragem;
     }
 
-    public LocalDateTime getManutencao() {
+    public LocalDate getManutencao() {
         return manutencao;
     }
 
-    public void setManutencao(LocalDateTime manutencao) {
+    public void setManutencao(LocalDate manutencao) {
         this.manutencao = manutencao;
     }
 
     @Override
     public String toString() {
-        return "placa: " + placa  +
-                "| capacidade: " + capacidade +
-                "| modelo: " + modelo  +
-                "| tpveiculo: " + tpveiculo  +
-                "| anofb=" + anofb +
-                "| disponivel=" + disponivel +
-                "| quilometragem=" + quilometragem +
-                "| manutencao=" + manutencao;
+        return "Placa: " + placa  +
+                "| Capacidade: " + capacidade +
+                "| Modelo: " + modelo  +
+                "| Tipo: " + tpVeiculo  +
+                "| Ano: " + ano +
+                "| Disponibilidade: " + disponivel +
+                "| KM: " + quilometragem +
+                "| Manutenção:" + manutencao;
+    }
+
+    @Override
+    public String getCodigoUnico() {
+        return placa;
     }
 }
