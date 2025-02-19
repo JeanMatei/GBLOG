@@ -8,8 +8,8 @@ public class Veiculo {
    private Double capacidade;
    private String modelo;
    private String tpVeiculo; //tipo de Veículo
-   private LocalDate ano;
-   private Boolean disponivel;
+   private String ano;
+   private String disponibilidade;
    private Double quilometragem;
    private LocalDate manutencao;
 
@@ -17,24 +17,24 @@ public class Veiculo {
     public Veiculo() {}
 
     // Construtor sem Placa
-    public Veiculo(Double capacidade, String modelo, String tpveiculo, LocalDate anofb, Boolean disponivel, Double quilometragem, LocalDate manutencao) {
+    public Veiculo(Double capacidade, String modelo, String tpveiculo, String anofb, String disponibilidade, Double quilometragem, LocalDate manutencao) {
         this.capacidade = capacidade;
         this.modelo = modelo;
         this.tpVeiculo = tpveiculo;
         this.ano = anofb;
-        this.disponivel = disponivel;
+        this.disponibilidade = disponibilidade;
         this.quilometragem = quilometragem;
         this.manutencao = manutencao;
     }
 
     // Construtor Completo
-    public Veiculo(String placa, Double capacidade, String modelo, String tpveiculo, LocalDate anofb, Boolean disponivel, Double quilometragem, LocalDate manutencao) {
+    public Veiculo(String placa, Double capacidade, String modelo, String tpveiculo, String anofb, String disponibilidade, Double quilometragem, LocalDate manutencao) {
         this.placa = placa;
         this.capacidade = capacidade;
         this.modelo = modelo;
         this.tpVeiculo = tpveiculo;
         this.ano = anofb;
-        this.disponivel = disponivel;
+        this.disponibilidade = disponibilidade;
         this.quilometragem = quilometragem;
         this.manutencao = manutencao;
     }
@@ -71,20 +71,20 @@ public class Veiculo {
         this.tpVeiculo = tpveiculo;
     }
 
-    public LocalDate getAnofb() {
+    public String getAnofb() {
         return ano;
     }
 
-    public void setAnofb(LocalDate anofb) {
+    public void setAnofb(String anofb) {
         this.ano = anofb;
     }
 
-    public Boolean getDisponivel() {
-        return disponivel;
+    public String getDisponivel() {
+        return disponibilidade;
     }
 
-    public void setDisponivel(Boolean disponivel) {
-        this.disponivel = disponivel;
+    public void setDisponivel(String disponivel) {
+        this.disponibilidade = disponivel;
     }
 
     public Double getQuilometragem() {
@@ -110,7 +110,7 @@ public class Veiculo {
                 "| Modelo: " + modelo  +
                 "| Tipo: " + tpVeiculo  +
                 "| Ano: " + ano +
-                "| Disponibilidade: " + disponivel +
+                "| Disponibilidade: " + disponibilidade +
                 "| KM: " + quilometragem +
                 "| Manutenção:" + manutencao;
     }

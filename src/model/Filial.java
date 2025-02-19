@@ -50,8 +50,4 @@ public class Filial {
                 "| Estado: " + estado;
     }
 
-    @Override
-    public String getCodigoUnico() {
-        return id.toString();
-    }
 }
