@@ -1,5 +1,11 @@
 package service;
 
-public class EntregaService {
+import model.Entrega;
 
+public class EntregaService {
+    CrudService<Entrega> crudEntrega = new CrudService<>();
+
+    public void cadastrarEntrega() {
+
+    }
 }

@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class Veiculo {
+public class Veiculo implements Identificavel {
 
    private String placa;
    private Double capacidade;
@@ -113,5 +113,10 @@ public class Veiculo {
                 "| Disponibilidade: " + disponivel +
                 "| KM: " + quilometragem +
                 "| Manutenção:" + manutencao;
+    }
+
+    @Override
+    public String getCodigoUnico() {
+        return placa;
     }
 }

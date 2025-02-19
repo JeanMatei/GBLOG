@@ -4,7 +4,7 @@ import util.GerarCodigoEntrega;
 
 import java.time.LocalDateTime;
 
-public class Entrega {
+public class Entrega implements Identificavel {
     private String cdEntrega;
     private Filial origem;
     private Filial destino;
@@ -150,5 +150,9 @@ public class Entrega {
                 "| Status: " + status +
                 "| Horário de Saída: " + saida +
                 "| Horário de Chegada: " + chegada;
+    }
+
+    public String getCodigoUnico() {
+        return cdEntrega;
     }
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class Filial {
+public class Filial implements Identificavel {
 
     private Long id;
     private String cidade;
@@ -48,5 +48,10 @@ public class Filial {
         return "Id: " + id +
                 "| Cidade: " + cidade  +
                 "| Estado: " + estado;
+    }
+
+    @Override
+    public String getCodigoUnico() {
+        return id.toString();
     }
 }
