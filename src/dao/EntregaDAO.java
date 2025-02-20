@@ -24,9 +24,12 @@ public class EntregaDAO {
                     "e.nmDestinatario, " +
                     "e.descricao, " +
                     "e.ptcarga " +
+                    "e.veiculo"+
                     "e.status" +
                     "e.saida" +
                     "e.chegada" +
+                    "e.id_filial" +
+                    "e.placa" +
 
                     //Veiculo
                     "v.placa, " +
@@ -51,32 +54,42 @@ public class EntregaDAO {
 
             ArrayList<Entrega> entregas = new ArrayList<>();
             while (resultado.next()) {
-                Entrega entrega = new Entrega(
-                        resultado.getString("cdentrega"),
-                        resultado.getString("origem"),
-                        resultado.getString("destino"),
-                        resultado.getString("nmCliente"),
-                        resultado.getString("nmDestinatario"),
-                        resultado.getString("descricao"),
-                        resultado.getDouble("ptcarga"),
-                        resultado.getString("veiculo"),
-                        resultado.getString("status"),
-                        resultado.getDate("saida").toLocalDate(),
-                        resultado.getDate("chegada").toLocalDate()
-                );
-                entregas.add(entrega);
-//                private String cdEntrega;
-                private Filial origem;
-                private Filial destino;
-                private String nmCliente;
-                private String nmDestinatario;
-                private String descricao;
-                private Double ptcarga;
-                private Veiculo veiculo; // Veículo designado
-                private String status;
-                private LocalDateTime saida;
-                private LocalDateTime chegada;
 
+                        Filial filial = new Filial(
+                        resultado.getString("f.id_filial"),
+                        resultado.getString("origem"),
+                        resultado.getString("destino")
+                );
+
+                        Veiculo veiculo = new Veiculo(
+                        resultado.getString("v.placa"),//  placa;
+                        resultado.getDouble("v.capacidade"),// capacidade
+                        resultado.getString("v.modelo"),//modelo
+                        resultado.getString("v.tipo"),//tpveículo = tipo do veículo
+                        resultado.getString("v.ano"),//ano
+                        resultado.getString("v.situacao"),//disponibilidade
+                        resultado.getDouble("v.quilometragematual"),//quilometragem
+                        resultado.getDate("v.dataUltimaManutencao").toLocalDate(),
+                        filial// filial passagem
+
+                );
+                Entrega entrega = new Entrega(
+
+                        resultado.getString("e.cdentrega"),
+                        filial,
+                        filial,
+                        resultado.getString("e.nmCliente"),
+                        resultado.getString("e.nmDestinatario"),
+                        resultado.getString("e.descricao"),
+                        resultado.getDouble("e.ptCarga"),
+                        veiculo,
+                        resultado.getString("e.status"),
+                        resultado.getDate("e.saida").toLocalDate().atTime(10,0),
+                        resultado.getDate("e.chegada").toLocalDate().atTime(10,0)
+
+                );
+
+                entregas.add(entrega);
 
             }
             return entregas;
