@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class EntregaDAO {
 
+
     public ArrayList<Entrega> selecionar() throws Exception {
         try {
             String sql = "SELECT " +
