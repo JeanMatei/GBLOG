@@ -2,7 +2,7 @@ package model;
 
 public class Filial {
 
-    private Long id;
+    private String id;
     private String cidade;
     private String estado;
 
@@ -13,17 +13,17 @@ public class Filial {
         this.estado = estado;
     }
 
-    public Filial(Long id, String cidade, String estado) {
+    public Filial(String id, String cidade, String estado) {
         this.id = id;
         this.cidade = cidade;
         this.estado = estado;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
