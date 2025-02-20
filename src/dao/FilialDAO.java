@@ -11,7 +11,7 @@ public class FilialDAO implements DAO<Filial> {
 
     public ArrayList<Filial> selecionar() throws Exception {
         try {
-            String sql = "SELECT" +
+            String sql = "SELECT " +
                     "id_filial, " +
                     "cidade, " +
                     "estado" +
@@ -73,7 +73,7 @@ public class FilialDAO implements DAO<Filial> {
                         " id_filial = ?, " +
                         "cidade = ?, " +
                         "estado = ?" +
-                        "WHERE id = ?";
+                        "WHERE id_filial = ?";
 
                 //Preparando e passando os parâmetros
                 PreparedStatement declaracao = ConexaoMySQL.get().prepareStatement(sql);
