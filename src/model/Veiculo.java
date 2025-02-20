@@ -13,12 +13,13 @@ public class Veiculo {
    private String disponibilidade;
    private Double quilometragem;
    private LocalDate manutencao;
+   private Filial ultimaFilialPassagem;
 
     // Construtor vazio
     public Veiculo() {}
 
     // Construtor sem Placa
-    public Veiculo(Double capacidade, String modelo, String tpveiculo, String anofb, String disponibilidade, Double quilometragem, LocalDate manutencao) {
+    public Veiculo(Double capacidade, String modelo, String tpveiculo, String anofb, String disponibilidade, Double quilometragem, LocalDate manutencao, Filial ultimaFilialPassagem) {
         this.capacidade = capacidade;
         this.modelo = modelo;
         this.tpVeiculo = tpveiculo;
@@ -26,10 +27,11 @@ public class Veiculo {
         this.disponibilidade = disponibilidade;
         this.quilometragem = quilometragem;
         this.manutencao = manutencao;
+        this.ultimaFilialPassagem = ultimaFilialPassagem;
     }
 
     // Construtor Completo
-    public Veiculo(String placa, Double capacidade, String modelo, String tpveiculo, String anofb, String disponibilidade, Double quilometragem, LocalDate manutencao) {
+    public Veiculo(String placa, Double capacidade, String modelo, String tpveiculo, String anofb, String disponibilidade, Double quilometragem, LocalDate manutencao, Filial ultimaFilialPassagem) {
         this.placa = placa;
         this.capacidade = capacidade;
         this.modelo = modelo;
@@ -38,6 +40,7 @@ public class Veiculo {
         this.disponibilidade = disponibilidade;
         this.quilometragem = quilometragem;
         this.manutencao = manutencao;
+        this.ultimaFilialPassagem = ultimaFilialPassagem;
     }
 
     public String getPlaca() {
@@ -104,6 +107,14 @@ public class Veiculo {
         this.manutencao = manutencao;
     }
 
+    public Filial getUltimaFilialPassagem() {
+        return ultimaFilialPassagem;
+    }
+
+    public void setUltimaFilialPassagem(Filial ultimaFilialPassagem) {
+        this.ultimaFilialPassagem = ultimaFilialPassagem;
+    }
+
     @Override
     public String toString() {
         return "Placa: " + placa  +
@@ -113,6 +124,7 @@ public class Veiculo {
                 "| Ano: " + ano +
                 "| Disponibilidade: " + disponibilidade +
                 "| KM: " + quilometragem +
-                "| Manutenção:" + manutencao;
+                "| Manutenção:" + manutencao +
+                "| Última filial de passagem: " + ultimaFilialPassagem;
     }
 }

@@ -15,14 +15,14 @@ public class FilialDAO implements DAO<Filial> {
                     "id_filial, " +
                     "cidade, " +
                     "estado" +
-                    "FROM filial";
+                    " FROM filial";
             Statement declaracao = ConexaoMySQL.get().createStatement();
             ResultSet resultado = declaracao.executeQuery(sql);
 
             ArrayList<Filial> filials = new ArrayList<>();
             while (resultado.next()) {
               Filial filial = new Filial(
-                        resultado.getString("id"),
+                        resultado.getString("id_filial"),
                         resultado.getString("cidade"),
                         resultado.getString("estado")
                 );
@@ -31,7 +31,8 @@ public class FilialDAO implements DAO<Filial> {
             return filials;
 
         } catch (SQLException e) {
-            throw new Exception("Erro desconhecido! Por favor, tente novamente!");
+            e.printStackTrace();
+            throw new Exception("Erro desconhecido! Por favor, tente novamente!" + e.getMessage());
 
         }
     }

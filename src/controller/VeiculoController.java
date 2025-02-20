@@ -11,36 +11,33 @@ public class VeiculoController {
         this.veiculoService = veiculoService;
     }
 
-    public Integer selecionarFuncionalidadeVeiculo() {
+    public String selecionarFuncionalidadeVeiculo() throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Selecione uma funcionalidade: %n1 - Cadastrar Veículo %n2 - Alterar Veículo %n3 - Remover Veículos %n4 - Listar Veículos%n5 - Sair%n ");
         Integer funcionalidadeVeiculo = scanner.nextInt();
 
-        return funcionalidadeVeiculo;
+        return inicializarVeiculo(funcionalidadeVeiculo);
     }
 
-    public void inicializarVeiculo(Integer funcionalidadeVeiculo) {
+    public String inicializarVeiculo(Integer funcionalidadeVeiculo) throws Exception {
         switch (funcionalidadeVeiculo) {
             case 1:
-                veiculoService.inserirVeiculo(null,
+                 return veiculoService.inserirVeiculo(null,
                         null,
                         null,
                         null,
                         null,
                         null,
                         null);
-                break;
             case 2:
-                veiculoService.alterarVeiculo();
-                break;
+                return veiculoService.alterarVeiculo();
             case 3:
-                veiculoService.excluirVeiculo(1L);
-                break;
+                return veiculoService.excluirVeiculo(1L);
             case 4:
-                veiculoService.listarVeiculo();
-                break;
+                return veiculoService.listarVeiculo();
             case 5:
                 break;
         }
+        return "";
     }
 }

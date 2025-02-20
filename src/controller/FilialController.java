@@ -17,8 +17,7 @@ public class FilialController {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Selecione uma funcionalidade: %n1 - Cadastrar Filial %n2 - Alterar Filial %n3 - Remover Filiais %n4 - Listar Filiais%n5 - Sair%n ");
         String funcionalidadeFilial = scanner.nextLine();
-        inicializarFilial(funcionalidadeFilial);
-        return "PAROU NO SELECIONAR";
+        return inicializarFilial(funcionalidadeFilial);
     }
 
     public String inicializarFilial(String funcionalidadeFilial) throws Exception {
@@ -30,7 +29,6 @@ public class FilialController {
             case "3":
                 return filialService.excluirFilial(1L);
             case "4":
-                System.out.println("teste");
                 return filialService.listarFilial();
             case "5":
             break;

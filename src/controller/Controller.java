@@ -20,8 +20,7 @@ public class Controller {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Selecione uma funcionalidade: %n1 - Gerenciar Entregas %n2 - Gerenciar Veículos %n3 - Gerenciar Filiais %n4 - Relatórios %n5 - Sair%n ");
         String funcionalidade = scanner.nextLine();
-        inicializar(funcionalidade);
-        return "PAROU NO CONTROLLER GERAL";
+        return inicializar(funcionalidade);
     }
 
     public String inicializar(String funcionalidade) throws Exception {
@@ -29,9 +28,9 @@ public class Controller {
             case "1":
                 entregaController.selecionarFuncionalidadeEntrega();
             case "2":
-                veiculoController.selecionarFuncionalidadeVeiculo();
+                return veiculoController.selecionarFuncionalidadeVeiculo();
             case "3":
-                filialController.selecionarFuncionalidadeFilial();
+                return filialController.selecionarFuncionalidadeFilial();
             case "4":
                 //Aqui virá a funcionalidade de mostrar os relatórios
                 break;

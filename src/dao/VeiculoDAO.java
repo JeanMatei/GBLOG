@@ -11,42 +11,55 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class VeiculoDAO implements DAO<Veiculo> {
+    private final FilialDAO filialDAO;
+    public VeiculoDAO(FilialDAO filialDAO) {
+        this.filialDAO = filialDAO;
+    }
 
     public ArrayList<Veiculo> selecionar() throws Exception {
         try {
             String sql = "SELECT " +
-                    "placa, " +
-                    "modelo, " +
-                    "anoFabricacao, " +
-                    "capacidadedeCarga, " +
-                    "tipoVeiculo, " +
-                    "situacao, " +
-                    "quilometragemAtual, " +
-                    "dataUltimaManutencao, " +
-                    "id_filial, " +
-                    "FROM veiculo";
+                    "v.placa, " +
+                    "v.modelo, " +
+                    "v.ano, " +
+                    "v.capacidade, " +
+                    "v.tipo, " +
+                    "v.situacao, " +
+                    "v.quilometragematual, " +
+                    "v.dataUltimaManutencao, " +
+                    "v.id_filial, " +
+
+                    "f.id_filial, " +
+                    "f.cidade," +
+                    "f.estado " +
+                    "FROM veiculo v JOIN filial f ON v.id_filial = f.id_filial";
             Statement declaracao = ConexaoMySQL.get().createStatement();
             ResultSet resultado = declaracao.executeQuery(sql);
 
             ArrayList<Veiculo> veiculos = new ArrayList<>();
             while (resultado.next()) {
+                Filial filial = new Filial(
+                        resultado.getString("f.id_filial"),
+                        resultado.getString("f.cidade"),
+                        resultado.getString("f.estado")
+                );
                 Veiculo veiculo = new Veiculo(
-
-                        resultado.getString("1"),//  placa;
-                        resultado.getDouble("1.000"),// capacidade
-                        resultado.getString("Furgão Mercedes"),//modelo
-                        resultado.getString("Furgão"),//tpveículo = tipo do veículo
-                        resultado.getString("2007"),//ano
-                        resultado.getString("Disponível"),//disponibilidade
-                        resultado.getDouble("2500.00"),//quilometragem
-                        resultado.getDate("2024-09-20").toLocalDate()//manutencao
+                        resultado.getString("placa"),//  placa;
+                        resultado.getDouble("capacidade"),// capacidade
+                        resultado.getString("modelo"),//modelo
+                        resultado.getString("tipo"),//tpveículo = tipo do veículo
+                        resultado.getString("ano"),//ano
+                        resultado.getString("situacao"),//disponibilidade
+                        resultado.getDouble("quilometragematual"),//quilometragem
+                        resultado.getDate("dataUltimaManutencao").toLocalDate(),
+                        filial// filial passagem
                         );
                 veiculos.add(veiculo);
             }
             return veiculos;
 
         } catch (SQLException e) {
-            throw new Exception("Erro desconhecido! Por favor, tente novamente!");
+            throw new Exception("Erro desconhecido! Por favor, tente novamente!" + e.getMessage());
 
         }
     }
@@ -82,7 +95,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Erro desconhecido! Por favor, tente novamente!");
+            throw new Exception("Erro desconhecido! Por favor, tente novamente!" + e.getMessage());
         }
     }
 
@@ -125,44 +138,44 @@ public class VeiculoDAO implements DAO<Veiculo> {
         }
     }
 
-    public Veiculo selecionarPorId(String placa) throws Exception {
-        try {
-            String sql = "SELECT " +
-                    "placa, " +
-                    "capacidade, " +
-                    "modelo, " +
-                    "tpveiculo, " +
-                    "ano, " +
-                    "quilometragem, " +
-                    "disponibilidade, " +
-                    "manutencao, " +
-                    "id_filial " +
-                    "FROM filial";
-
-            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
-            preparacao.setString(1, placa);
-            ResultSet resultado = preparacao.executeQuery();
-
-            //capacidade,modelo,tpveiculo,ano,disponibilidade,quilometragem,manutencao
-
-            //Selecionando todos os atributos e criando uma filial
-            if (resultado.next()) {
-                return new Veiculo(
-                        resultado.getDouble("capacidade"),
-                        resultado.getString("modelo"),
-                        resultado.getString("tpveiculo"),
-                        resultado.getString("ano"),
-                        resultado.getString("disponibilidade"),
-                        resultado.getDouble("quilometragem"),
-                        resultado.getDate("manutencao").toLocalDate()
-                );
-            } else {
-                return null;
-            }
-
-        } catch (Exception e) {
-            throw new Exception("Não foi possível selecionar a veiculo.");
-        }
-    }
+//    public Veiculo selecionarPorId(String placa) throws Exception {
+//        try {
+//            String sql = "SELECT " +
+//                    "placa, " +
+//                    "capacidade, " +
+//                    "modelo, " +
+//                    "tpveiculo, " +
+//                    "ano, " +
+//                    "quilometragem, " +
+//                    "disponibilidade, " +
+//                    "manutencao, " +
+//                    "id_filial " +
+//                    "FROM filial";
+//
+//            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
+//            preparacao.setString(1, placa);
+//            ResultSet resultado = preparacao.executeQuery();
+//
+//            //capacidade,modelo,tpveiculo,ano,disponibilidade,quilometragem,manutencao
+//
+//            //Selecionando todos os atributos e criando uma filial
+//            if (resultado.next()) {
+//                return new Veiculo(
+//                        resultado.getDouble("capacidade"),
+//                        resultado.getString("modelo"),
+//                        resultado.getString("tpveiculo"),
+//                        resultado.getString("ano"),
+//                        resultado.getString("disponibilidade"),
+//                        resultado.getDouble("quilometragem"),
+//                        resultado.getDate("manutencao").toLocalDate()
+//                );
+//            } else {
+//                return null;
+//            }
+//
+//        } catch (Exception e) {
+//            throw new Exception("Não foi possível selecionar a veiculo.");
+//        }
+//    }
 
 }
