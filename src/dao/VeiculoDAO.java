@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class VeiculoDAO {
+public class VeiculoDAO implements DAO<Veiculo> {
 
     public ArrayList<Veiculo> selecionar() throws Exception {
         try {
@@ -53,16 +53,17 @@ public class VeiculoDAO {
 
     public Boolean inserir (Veiculo veiculo) throws Exception {
         try {
-            String sql = "INSERT INTO veiculo" +
-                    "(capacidade,modelo,tpveiculo,ano,quilometragem,manutencao) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO veiculo " +
+                    "(capacidade,modelo,tpveiculo,ano,quilometragem,disponibilidade,manutencao,) VALUES(?,?,?,?,?,?,?)";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
            preparacao.setDouble(1,veiculo.getCapacidade());
            preparacao.setString(2, veiculo.getModelo());
            preparacao.setString(3, veiculo.getTpveiculo());
            preparacao.setString(4,veiculo.getAnofb());
-           preparacao.setDouble(5,veiculo.getQuilometragem());
-           preparacao.setDate(6,java.sql.Date.valueOf(veiculo.getManutencao()));
+           preparacao.setString(5, veiculo.getDisponivel());
+           preparacao.setDouble(6,veiculo.getQuilometragem());
+           preparacao.setDate(7,java.sql.Date.valueOf(veiculo.getManutencao()));
 
             int linhasAfetadas = preparacao.executeUpdate();
             if (linhasAfetadas == 0) {
@@ -94,6 +95,7 @@ public class VeiculoDAO {
                     "tpveiculo = ?, " +
                     "ano =?, "  +
                     "quilometragem =?, "  +
+                    "disponibilidade =?, " +
                     "manutencao =?, "  +
                     "WHERE placa = ?";
 
@@ -107,5 +109,60 @@ public class VeiculoDAO {
         }
     }
 
+    //Deletando diretamente no banco de dados
+    public Boolean deletar(String placa) throws Exception {
+        try {
+            //Comando sql com DELETE
+            String sql = "DELETE FROM filial WHERE id = ?";
+
+            //Passando o id para o WHERE
+            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
+            preparacao.setString(1, placa);
+            return preparacao.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao deletar a placa. Por favor, tente novamente mais tarde.");
+        }
+    }
+
+    public Veiculo selecionarPorId(String placa) throws Exception {
+        try {
+            String sql = "SELECT " +
+                    "placa, " +
+                    "capacidade, " +
+                    "modelo, " +
+                    "tpveiculo, " +
+                    "ano, " +
+                    "quilometragem, " +
+                    "disponibilidade, " +
+                    "manutencao, " +
+                    "id_filial " +
+                    "FROM filial";
+
+            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
+            preparacao.setString(1, placa);
+            ResultSet resultado = preparacao.executeQuery();
+
+            //capacidade,modelo,tpveiculo,ano,disponibilidade,quilometragem,manutencao
+
+            //Selecionando todos os atributos e criando uma filial
+            if (resultado.next()) {
+                return new Veiculo(
+                        resultado.getDouble("capacidade"),
+                        resultado.getString("modelo"),
+                        resultado.getString("tpveiculo"),
+                        resultado.getString("ano"),
+                        resultado.getString("disponibilidade"),
+                        resultado.getDouble("quilometragem"),
+                        resultado.getDate("manutencao").toLocalDate()
+                );
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Não foi possível selecionar a veiculo.");
+        }
+    }
 
 }

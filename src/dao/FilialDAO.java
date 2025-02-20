@@ -22,7 +22,7 @@ public class FilialDAO implements DAO<Filial> {
             ArrayList<Filial> filials = new ArrayList<>();
             while (resultado.next()) {
               Filial filial = new Filial(
-                        resultado.getLong("id"),
+                        resultado.getString("id"),
                         resultado.getString("cidade"),
                         resultado.getString("estado")
                 );
@@ -51,7 +51,7 @@ public class FilialDAO implements DAO<Filial> {
 
                 try (ResultSet generatedKeys = preparacao.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        filial.setId(generatedKeys.getLong(1)); // Define o ID gerado
+                        filial.setId(generatedKeys.getString(1)); // Define o ID gerado
                     } else {
                         throw new Exception("Falha ao obter o ID da filial inserida.");
                     }
@@ -87,14 +87,14 @@ public class FilialDAO implements DAO<Filial> {
         }
 
         //Deletando diretamente no banco de dados
-        public Boolean deletar(Long id_filial) throws Exception {
+        public Boolean deletar(String id_filial) throws Exception {
             try {
                 //Comando sql com DELETE
                 String sql = "DELETE FROM filial WHERE id = ?";
 
                 //Passando o id para o WHERE
                 PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
-                preparacao.setLong(1, id_filial);
+                preparacao.setString(1, id_filial);
                 return preparacao.executeUpdate() > 0;
 
             } catch (Exception e) {
@@ -102,7 +102,7 @@ public class FilialDAO implements DAO<Filial> {
             }
         }
 
-    public Filial selecionarPorId(Long id_filial) throws Exception {
+    public Filial selecionarPorId(String id_filial) throws Exception {
         try {
             String sql = "SELECT" +
                     "id_filial, " +
@@ -111,13 +111,13 @@ public class FilialDAO implements DAO<Filial> {
                     "FROM filial";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
-            preparacao.setLong(1, id_filial);
+            preparacao.setString(1, id_filial);
             ResultSet resultado = preparacao.executeQuery();
 
             //Selecionando todos os atributos e criando uma filial
             if (resultado.next()) {
                 return new Filial(
-                        resultado.getLong("id"),
+                        resultado.getString("id"),
                         resultado.getString("cidade"),
                         resultado.getString("estado")
                 );
