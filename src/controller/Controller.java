@@ -16,30 +16,29 @@ public class Controller {
         this.veiculoController = veiculoController;
     }
 
-    public Integer selecionarFuncionalidade() {
+    public String selecionarFuncionalidade() throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Selecione uma funcionalidade: %n1 - Gerenciar Entregas %n2 - Gerenciar Veículos %n3 - Gerenciar Filiais %n4 - Relatórios %n5 - Sair%n ");
-        Integer funcionalidade = scanner.nextInt();
-        return funcionalidade;
+        String funcionalidade = scanner.nextLine();
+        inicializar(funcionalidade);
+        return "PAROU NO CONTROLLER GERAL";
     }
 
-    public void inicializar(Integer funcionalidade) {
+    public String inicializar(String funcionalidade) throws Exception {
         switch (funcionalidade) {
-            case 1:
+            case "1":
                 entregaController.selecionarFuncionalidadeEntrega();
-                break;
-            case 2:
+            case "2":
                 veiculoController.selecionarFuncionalidadeVeiculo();
-                break;
-            case 3:
+            case "3":
                 filialController.selecionarFuncionalidadeFilial();
-                break;
-            case 4:
+            case "4":
                 //Aqui virá a funcionalidade de mostrar os relatórios
                 break;
-            case 5:
+            case "5":
                 break;
 
         }
+        return "123";
     }
 }

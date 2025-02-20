@@ -9,7 +9,7 @@ public class ConexaoMySQL {
     //Atributo de conexão
     private static final String url = "jdbc:mysql://localhost:3306/gblog";
     private static final String usuario = "root";
-    private static final String senha = "";
+    private static final String senha = "root";
     private static  Connection conexao;
 
     public static Connection get() {

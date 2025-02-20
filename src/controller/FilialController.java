@@ -13,30 +13,28 @@ public class FilialController {
         this.filialService = filialService;
     }
 
-    public Integer selecionarFuncionalidadeFilial() {
+    public String selecionarFuncionalidadeFilial() throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Selecione uma funcionalidade: %n1 - Cadastrar Filial %n2 - Alterar Filial %n3 - Remover Filiais %n4 - Listar Filiais%n5 - Sair%n ");
-        Integer funcionalidadeFilial = scanner.nextInt();
-
-        return funcionalidadeFilial;
+        String funcionalidadeFilial = scanner.nextLine();
+        inicializarFilial(funcionalidadeFilial);
+        return "PAROU NO SELECIONAR";
     }
 
-    public void inicializarFilial(Integer funcionalidadeFilial) {
+    public String inicializarFilial(String funcionalidadeFilial) throws Exception {
         switch (funcionalidadeFilial) {
-            case 1:
-                filialService.inserirFilial("", "");
-                break;
-            case 2:
-                filialService.alterarFilial();
-                break;
-            case 3:
-                filialService.excluirFilial(1L);
-                break;
-            case 4:
-                filialService.listarFilial();
-                break;
-            case 5:
-                break;
+            case "1":
+                return filialService.inserirFilial("", "");
+            case "2":
+                return filialService.alterarFilial();
+            case "3":
+                return filialService.excluirFilial(1L);
+            case "4":
+                System.out.println("teste");
+                return filialService.listarFilial();
+            case "5":
+            break;
         }
+        return "";
     }
 }
