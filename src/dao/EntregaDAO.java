@@ -23,18 +23,16 @@ public class EntregaDAO {
 
                     //Entrega
                     "e.cdEntrega, " +
-                    "e.origem, " +
-                    "e.destino," +
-                    "e.nmCliente, " +
-                    "e.nmDestinatario, " +
-                    "e.descricao, " +
-                    "e.ptcarga " +
-                    "e.veiculo" +
-                    "e.status" +
-                    "e.saida" +
-                    "e.chegada" +
-                    "e.id_filial" +
-                    "e.placa" +
+                    "e.id_filial, " +
+                    "e.id_filial," +
+                    "e.nomeCliente, " +
+                    "e.nomeDestinatario, " +
+                    "e.descricaoCarga, " +
+                    "e.peso, " +
+                    "e.placa," +
+                    "e.statusEntrega," +
+                    "e.dataHoraSaida," +
+                    "e.dataHoraChegada," +
 
                     //Veiculo
                     "v.placa, " +
@@ -52,8 +50,8 @@ public class EntregaDAO {
                     "f.cidade," +
                     "f.estado " +
 
-                    "FROM entrega e JOIN filial f ON e.id_filial = f.id_filial" +
-                    "FROM entrega e JOIN veiculo v ON v.placa = e.placa";
+                    "FROM entrega e JOIN filial f ON e.id_filial = f.id_filial " +
+                    "JOIN veiculo v ON v.placa = e.placa";
             Statement declaracao = ConexaoMySQL.get().createStatement();
             ResultSet resultado = declaracao.executeQuery(sql);
 
@@ -83,14 +81,14 @@ public class EntregaDAO {
                         resultado.getString("e.cdentrega"),
                         filial,
                         filial,
-                        resultado.getString("e.nmCliente"),
-                        resultado.getString("e.nmDestinatario"),
-                        resultado.getString("e.descricao"),
-                        resultado.getDouble("e.ptCarga"),
+                        resultado.getString("e.nomeCliente"),
+                        resultado.getString("e.nomeDestinatario"),
+                        resultado.getString("e.descricaoCarga"),
+                        resultado.getDouble("e.peso"),
                         veiculo,
-                        resultado.getString("e.status"),
-                        resultado.getDate("e.saida"),
-                        resultado.getDate("e.chegada")
+                        resultado.getString("e.statusEntrega"),
+                        resultado.getDate("e.dataHoraSaida"),
+                        resultado.getDate("e.dataHoraChegada")
 
                 );
 
@@ -100,7 +98,8 @@ public class EntregaDAO {
             return entregas;
 
         } catch (SQLException e) {
-            throw new Exception("Erro desconhecido! Por favor, tente novamente!");
+            e.printStackTrace();
+            throw new Exception("Erro desconhecido! Por favor, tente novamente!" + e.getMessage());
 
         }
 

@@ -2,6 +2,7 @@ import controller.Controller;
 import controller.EntregaController;
 import controller.FilialController;
 import controller.VeiculoController;
+import dao.EntregaDAO;
 import dao.FilialDAO;
 import dao.VeiculoDAO;
 import model.Entrega;
@@ -17,8 +18,9 @@ public class Principal {
 
         FilialDAO filialDAO = new FilialDAO();
         VeiculoDAO veiculoDAO = new VeiculoDAO(filialDAO);
+        EntregaDAO entregaDAO = new EntregaDAO();
 
-        EntregaService entregaService = new EntregaService();
+        EntregaService entregaService = new EntregaService(entregaDAO);
         VeiculoService veiculoService = new VeiculoService(veiculoDAO, filialDAO);
         FilialService filialService = new FilialService(filialDAO);
 

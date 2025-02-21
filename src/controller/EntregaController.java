@@ -14,16 +14,27 @@ public class EntregaController {
         this.entregaService = entregaService;
     }
 
-    public Integer selecionarFuncionalidadeEntrega() {
+    public void selecionarFuncionalidadeEntrega() throws Exception {
         Scanner scanner = new Scanner(System.in);
-        System.out.printf("Selecione uma funcionalidade: %n1 - Cadastrar Entrega %n2 - Alterar Entrega %n3 - Remover Entregas %n4 - Listar Entregas%n5 - Sair%n ");
-        Integer funcionalidadeEntrega = scanner.nextInt();
-        return funcionalidadeEntrega;
+        String opcao;
+        do {
+            System.out.printf(
+                    "Selecione uma funcionalidade: %n" +
+                            "1 - Cadastrar Filial %n" +
+                            "2 - Alterar Filial %n" +
+                            "3 - Remover Filiais %n" +
+                            "4 - Listar Filiais %n" +
+                            "5 - Sair %n" +
+                            "Opção: ");
+
+            opcao = scanner.nextLine();
+            inicializarEntrega(opcao);
+        } while (!opcao.equals("5"));
     }
 
-    public void inicializarEntrega(Integer funcionalidadeEntrega) {
+    public void inicializarEntrega(String funcionalidadeEntrega) throws Exception {
         switch (funcionalidadeEntrega) {
-            case 1:
+            case "1":
                 entregaService.inserirEntrega(
                         1L,
                         2L,
@@ -37,16 +48,16 @@ public class EntregaController {
                         null
                 );
                 break;
-            case 2:
+            case "2":
                 entregaService.alterarEntrega();
                 break;
-            case 3:
+            case "3":
                 entregaService.excluirEntrega(1L);
                 break;
-            case 4:
+            case "4":
                 entregaService.listarEntrega();
                 break;
-            case 5:
+            case "5":
                 break;
         }
     }
