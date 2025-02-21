@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class VeiculoDAO implements DAO<Veiculo> {
     private final FilialDAO filialDAO;
+
     public VeiculoDAO(FilialDAO filialDAO) {
         this.filialDAO = filialDAO;
     }
@@ -138,45 +139,49 @@ public class VeiculoDAO implements DAO<Veiculo> {
         }
     }
 
-//    public Veiculo selecionarPorId(String placa) throws Exception {
-//        try {
-//            String sql = "SELECT " +
-//                    "placa, " +
-//                    "capacidade, " +
-//                    "modelo, " +
-//                    "tpveiculo, " +
-//                    "ano, " +
-//                    "quilometragem, " +
-//                    "disponibilidade, " +
-//                    "manutencao, " +
-//                    "id_filial " +
-//                    "FROM filial";
-//
-//            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
-//            preparacao.setString(1, placa);
-//            ResultSet resultado = preparacao.executeQuery();
-//
-//            //capacidade,modelo,tpveiculo,ano,disponibilidade,quilometragem,manutencao
-//
-//            //Selecionando todos os atributos e criando uma filial
-//            if (resultado.next()) {
-//                return new Veiculo(
-//                        resultado.getDouble("capacidade"),
-//                        resultado.getString("modelo"),
-//                        resultado.getString("tpveiculo"),
-//                        resultado.getString("ano"),
-//                        resultado.getString("disponibilidade"),
-//                        resultado.getDouble("quilometragem"),
-//                        resultado.getDate("manutencao").toLocalDate()
-//                );
-//            } else {
-//                return null;
-//            }
-//
-//        } catch (Exception e) {
-//            throw new Exception("Não foi possível selecionar a veiculo.");
-//        }
-//    }
+    public Veiculo selecionarPorId(String placa) throws Exception {
+        try {
+            String sql = "SELECT " +
+                    "placa, " +
+                    "capacidade, " +
+                    "modelo, " +
+                    "tpveiculo, " +
+                    "ano, " +
+                    "quilometragem, " +
+                    "disponibilidade, " +
+                    "manutencao, " +
+                    "id_filial " +
+                    "FROM filial";
+
+            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
+            preparacao.setString(1, placa);
+            ResultSet resultado = preparacao.executeQuery();
+
+            //capacidade,modelo,tpveiculo,ano,disponibilidade,quilometragem,manutencao
+
+            //Selecionando todos os atributos e criando uma filial
+            if (resultado.next()) {
+
+                return new Veiculo(
+                        resultado.getDouble("capacidade"),
+                        resultado.getString("modelo"),
+                        resultado.getString("tpveiculo"),
+                        resultado.getString("ano"),
+                        resultado.getString("disponibilidade"),
+                        resultado.getDouble("quilometragem"),
+                        resultado.getDate("manutencao").toLocalDate(),
+                        new Filial()
+                );
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Não foi possível selecionar a veiculo.");
+        }
+    }
+
+
 
     public Filial criarFilial() throws SQLException {
         String sql = "SELECT " +
