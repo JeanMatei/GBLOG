@@ -16,28 +16,42 @@ public class Controller {
         this.veiculoController = veiculoController;
     }
 
-    public String selecionarFuncionalidade() throws Exception {
+    public void selecionarFuncionalidade() throws Exception {
         Scanner scanner = new Scanner(System.in);
-        System.out.printf("Selecione uma funcionalidade: %n1 - Gerenciar Entregas %n2 - Gerenciar Veículos %n3 - Gerenciar Filiais %n4 - Relatórios %n5 - Sair%n ");
-        String funcionalidade = scanner.nextLine();
-        return inicializar(funcionalidade);
+        String funcionalidade;
+        do {
+            System.out.printf("" +
+                    "Selecione uma funcionalidade: %n1 - Gerenciar Entregas " +
+                    "%n2 - Gerenciar Veículos " +
+                    "%n3 - Gerenciar Filiais " +
+                    "%n4 - Relatórios " +
+                    "%n5 - Sair%n ");
+
+            funcionalidade = scanner.nextLine();
+            inicializar(funcionalidade);
+        } while(!funcionalidade.equals("5"));
     }
 
-    public String inicializar(String funcionalidade) throws Exception {
+    public void inicializar(String funcionalidade) throws Exception {
         switch (funcionalidade) {
             case "1":
                 entregaController.selecionarFuncionalidadeEntrega();
+                break;
             case "2":
-                return veiculoController.selecionarFuncionalidadeVeiculo();
+                veiculoController.selecionarFuncionalidadeVeiculo();
+                break;
             case "3":
-                return filialController.selecionarFuncionalidadeFilial();
+                filialController.selecionarFuncionalidadeFilial();
+                break;
             case "4":
-                //Aqui virá a funcionalidade de mostrar os relatórios
+                // Implementar relatórios
+                System.out.println("Funcionalidade de relatórios não implementada");
                 break;
             case "5":
+                System.out.println("Saindo do sistema...");
                 break;
-
+            default:
+                System.out.println("Opção inválida!");
         }
-        return "123";
     }
 }

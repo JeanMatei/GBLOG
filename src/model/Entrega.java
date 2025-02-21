@@ -1,8 +1,6 @@
 package model;
 
-import util.GerarCodigoEntrega;
-
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Entrega {
     private String cdEntrega;
@@ -14,40 +12,37 @@ public class Entrega {
     private Double ptcarga;
     private Veiculo veiculo; // Veículo designado
     private String status;
-    private LocalDateTime saida;
-    private LocalDateTime chegada;
+    private Date saida;
+    private Date chegada;
 
     public Entrega() {}
 
-    public Entrega(Filial origem, Filial destino, String nmcliente, String nmdestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, LocalDateTime saida, LocalDateTime chegada) {
+    public Entrega(Filial origem, Filial destino, String nmCliente, String nmDestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, Date saida, Date chegada) {
         this.origem = origem;
         this.destino = destino;
-        this.nmCliente = nmcliente;
-        this.nmDestinatario = nmdestinatario;
+        this.nmCliente = nmCliente;
+        this.nmDestinatario = nmDestinatario;
         this.descricao = descricao;
         this.ptcarga = ptcarga;
         this.veiculo = veiculo;
         this.status = status;
         this.saida = saida;
         this.chegada = chegada;
-        this.cdEntrega = GerarCodigoEntrega.gerarCodigo();
     }
 
-    public Entrega(String cdentrega, Filial origem, Filial destino, String nmcliente, String nmdestinatario, String descricao, Double ptcarga, Veiculo veiculodes, String statusentrega, LocalDateTime saida, LocalDateTime chegada) {
-        this.cdEntrega = cdentrega;
+    public Entrega(String cdEntrega, Filial origem, Filial destino, String nmCliente, String nmDestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, Date saida, Date chegada) {
+        this.cdEntrega = cdEntrega;
         this.origem = origem;
         this.destino = destino;
-        this.nmCliente = nmcliente;
-        this.nmDestinatario = nmdestinatario;
+        this.nmCliente = nmCliente;
+        this.nmDestinatario = nmDestinatario;
         this.descricao = descricao;
         this.ptcarga = ptcarga;
-        this.veiculo = veiculodes;
-        this.status = statusentrega;
+        this.veiculo = veiculo;
+        this.status = status;
         this.saida = saida;
         this.chegada = chegada;
     }
-
-
 
     public String getCdEntrega() {
         return cdEntrega;
@@ -121,19 +116,19 @@ public class Entrega {
         this.status = statusentrega;
     }
 
-    public LocalDateTime getSaida() {
+    public Date getSaida() {
         return saida;
     }
 
-    public void setSaida(LocalDateTime saida) {
+    public void setSaida(Date saida) {
         this.saida = saida;
     }
 
-    public LocalDateTime getChegada() {
+    public Date getChegada() {
         return chegada;
     }
 
-    public void setChegada(LocalDateTime chegada) {
+    public void setChegada(Date chegada) {
         this.chegada = chegada;
     }
 
