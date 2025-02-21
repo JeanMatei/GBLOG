@@ -71,7 +71,6 @@ public class FilialDAO implements DAO<Filial> {
             try {
                 String sql = "UPDATE filial " +
                         "SET " +
-                        " id_filial = ?, " +
                         "cidade = ?, " +
                         "estado = ?" +
                         "WHERE id_filial = ?";
@@ -80,10 +79,12 @@ public class FilialDAO implements DAO<Filial> {
                 PreparedStatement declaracao = ConexaoMySQL.get().prepareStatement(sql);
                 declaracao.setString(1, filial.getCidade());
                 declaracao.setString(2, filial.getEstado());
+                declaracao.setString(3, filial.getId());
                 return declaracao.executeUpdate() > 0;
 
             } catch (Exception e) {
-                throw new Exception("Erro ao atualizar a filial. Tente novamente mais tarde!");
+                e.printStackTrace();
+                throw new Exception("Erro ao atualizar a filial. Tente novamente mais tarde!" + e.getMessage());
             }
         }
 
@@ -91,7 +92,7 @@ public class FilialDAO implements DAO<Filial> {
         public Boolean deletar(String id_filial) throws Exception {
             try {
                 //Comando sql com DELETE
-                String sql = "DELETE FROM filial WHERE id = ?";
+                String sql = "DELETE FROM filial WHERE id_filial = ?";
 
                 //Passando o id para o WHERE
                 PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
@@ -99,7 +100,8 @@ public class FilialDAO implements DAO<Filial> {
                 return preparacao.executeUpdate() > 0;
 
             } catch (Exception e) {
-                throw new Exception("Erro ao deletar a filial. Por favor, tente novamente mais tarde.");
+                e.printStackTrace();
+                throw new Exception("Erro ao deletar a filial. Por favor, tente novamente mais tarde." + e.getMessage());
             }
         }
 

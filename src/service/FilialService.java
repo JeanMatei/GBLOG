@@ -29,16 +29,32 @@ public class FilialService {
         return sb.toString();
     }
 
-    public String inserirFilial(String cidade, String estado) {
-        return "";
+    public String cadastrarFilial(String cidade, String estado) throws Exception {
+
+        Filial filial = new Filial(cidade, estado);
+        if (filialDAO.inserir(filial)) {
+            return "Filial cadastrada com sucesso!";
+        } else  {
+            throw new FilialException("Erro ao cadastrar a filial.");
+        }
     }
 
-    public String excluirFilial(Long idEntrega) {
-        return "";
+    public String excluirFilial(String idFilial) throws Exception {
+        if (filialDAO.deletar(idFilial)) {
+            return "Filial excluída com sucesso!";
+        } else {
+            return "Erro ao excluir a filial.";
+        }
     }
 
-    public String alterarFilial() {
-        return "";
+    public String alterarFilial(String idFilial, String cidade, String estado) throws Exception {
+
+        Filial filial = new Filial(idFilial, cidade, estado);
+        if (filialDAO.atualizar(filial)) {
+            return "Filial alterada com sucesso!";
+        } else {
+            return "Erro ao alterar a filial.";
+        }
     }
 
 }

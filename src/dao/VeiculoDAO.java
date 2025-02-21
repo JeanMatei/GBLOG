@@ -178,4 +178,31 @@ public class VeiculoDAO implements DAO<Veiculo> {
 //        }
 //    }
 
+    public Filial criarFilial() throws SQLException {
+        String sql = "SELECT " +
+                "v.placa, " +
+                "v.modelo, " +
+                "v.ano, " +
+                "v.capacidade, " +
+                "v.tipo, " +
+                "v.situacao, " +
+                "v.quilometragematual, " +
+                "v.dataUltimaManutencao, " +
+                "v.id_filial, " +
+
+                "f.id_filial, " +
+                "f.cidade," +
+                "f.estado " +
+                "FROM veiculo v JOIN filial f ON v.id_filial = f.id_filial";
+        Statement declaracao = ConexaoMySQL.get().createStatement();
+        ResultSet resultado = declaracao.executeQuery(sql);
+
+        Filial filial = new Filial(
+                resultado.getString("f.id_filial"),
+                resultado.getString("f.cidade"),
+                resultado.getString("f.estado")
+        );
+        return filial;
+    }
+
 }

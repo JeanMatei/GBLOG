@@ -19,7 +19,7 @@ public class Principal {
         VeiculoDAO veiculoDAO = new VeiculoDAO(filialDAO);
 
         EntregaService entregaService = new EntregaService();
-        VeiculoService veiculoService = new VeiculoService(veiculoDAO);
+        VeiculoService veiculoService = new VeiculoService(veiculoDAO, filialDAO);
         FilialService filialService = new FilialService(filialDAO);
 
 
@@ -28,7 +28,7 @@ public class Principal {
         FilialController filialController = new FilialController(filialService);
 
         Controller controller = new Controller(filialController, entregaController, veiculoController);
-        System.out.println(controller.selecionarFuncionalidade());
+        controller.selecionarFuncionalidade();
 
 
 

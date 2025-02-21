@@ -1,16 +1,16 @@
-//package dao;
-
-import connection.ConexaoMySQL;
-import model.Entrega;
-import model.Filial;
-import model.Veiculo;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
+////package dao;
+//
+//import connection.ConexaoMySQL;
+//import model.Entrega;
+//import model.Filial;
+//import model.Veiculo;
+//
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.sql.Statement;
+//import java.time.LocalDateTime;
+//import java.util.ArrayList;
+//
 //public class EntregaDAO  {
 //
 //    public ArrayList<Entrega> selecionar() throws Exception {
@@ -58,8 +58,8 @@ import java.util.ArrayList;
 //                private String status;
 //                private LocalDateTime saida;
 //                private LocalDateTime chegada;
-
-
+//
+//
 //
 //            }
 //            return entregas;

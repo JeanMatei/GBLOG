@@ -1,5 +1,6 @@
 package service;
 
+import dao.FilialDAO;
 import dao.VeiculoDAO;
 import model.Veiculo;
 
@@ -8,13 +9,14 @@ import java.util.ArrayList;
 
 public class VeiculoService {
     private VeiculoDAO veiculoDAO;
-
-    public VeiculoService(VeiculoDAO veiculoDAO) {
+    private FilialDAO filialDAO;
+    public VeiculoService(VeiculoDAO veiculoDAO, FilialDAO filialDAO) {
+        this.filialDAO = filialDAO;
         this.veiculoDAO = veiculoDAO;
     }
 
     public String inserirVeiculo( Double capacidade , String modelo, String tipoVeiculo, String ano, String disponibilidade, Double quilometragem, LocalDate manutencao) {
-        return "";
+        return null;
     }
 
     public String listarVeiculo() throws Exception {
