@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EntregaDAO {
 
@@ -87,8 +89,8 @@ public class EntregaDAO {
                         resultado.getDouble("e.ptCarga"),
                         veiculo,
                         resultado.getString("e.status"),
-                        resultado.getDate("e.saida").toLocalDate().atTime(10, 0),
-                        resultado.getDate("e.chegada").toLocalDate().atTime(10, 0)
+                        resultado.getDate("e.saida"),
+                        resultado.getDate("e.chegada")
 
                 );
 
@@ -116,7 +118,7 @@ public class EntregaDAO {
             preparacao.setString(4,entrega.getDescricao());
             preparacao.setDouble(5,entrega.getPtcarga());
             preparacao.setString(6,entrega.getStatusentrega());
-            preparacao.setDate(7,entrega.getSaida().toLocalDate().atTime(10,0,0));
+            preparacao.setDate(7,entrega.getSaida());
             preparacao.setString(8,entrega.getCdEntrega());
             preparacao.setString(9,entrega.getCdEntrega());
             preparacao.setString(10,entrega.getCdEntrega());
