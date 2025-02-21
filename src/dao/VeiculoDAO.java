@@ -68,28 +68,21 @@ public class VeiculoDAO implements DAO<Veiculo> {
     public Boolean inserir (Veiculo veiculo) throws Exception {
         try {
             String sql = "INSERT INTO veiculo " +
-                    "(capacidade,modelo,tpveiculo,ano,quilometragem,disponibilidade,manutencao,) VALUES(?,?,?,?,?,?,?)";
-
-            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-           preparacao.setDouble(1,veiculo.getCapacidade());
-           preparacao.setString(2, veiculo.getModelo());
-           preparacao.setString(3, veiculo.getTpveiculo());
-           preparacao.setString(4,veiculo.getAnofb());
-           preparacao.setString(5, veiculo.getDisponivel());
-           preparacao.setDouble(6,veiculo.getQuilometragem());
-           preparacao.setDate(7,java.sql.Date.valueOf(veiculo.getManutencao()));
+                    "(placa, capacidade,modelo,tipo,ano,situacao,quilometragematual,dataUltimaManutencao, id_filial) VALUES(?,?,?,?,?,?,?,?,?)";
+           PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+           preparacao.setString(1, veiculo.getPlaca());
+           preparacao.setDouble(2,veiculo.getCapacidade());
+           preparacao.setString(3, veiculo.getModelo());
+           preparacao.setString(4, veiculo.getTpveiculo());
+           preparacao.setString(5,veiculo.getAnofb());
+           preparacao.setString(6, veiculo.getDisponivel());
+           preparacao.setDouble(7,veiculo.getQuilometragem());
+           preparacao.setDate(8,java.sql.Date.valueOf(veiculo.getManutencao()));
+           preparacao.setString(9, veiculo.getUltimaFilialPassagem().getId());
 
             int linhasAfetadas = preparacao.executeUpdate();
             if (linhasAfetadas == 0) {
                 throw new Exception("Erro ao inserir a veiculo no banco. Nenhuma linha foi inserida.");
-            }
-
-            try (ResultSet generatedKeys = preparacao.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    veiculo.setPlaca(generatedKeys.getString(1)); // Define o ID gerado
-                } else {
-                    throw new Exception("Falha ao obter o ID da veiculo inserida.");
-                }
             }
 
             return true;
@@ -104,22 +97,34 @@ public class VeiculoDAO implements DAO<Veiculo> {
         try {
             String sql = "UPDATE veiculo " +
                     "SET " +
-                    " capacidade = ?, " +
+                    "capacidade = ?, " +
                     "modelo = ?, " +
-                    "tpveiculo = ?, " +
+                    "tipo = ?, " +
                     "ano =?, "  +
-                    "quilometragem =?, "  +
-                    "disponibilidade =?, " +
-                    "manutencao =?, "  +
+                    "situacao = ?, "  +
+                    "quilometragematual = ?, " +
+                    "dataUltimaManutencao = ?," +
+                    "id_filial = ? "  +
                     "WHERE placa = ?";
 
             //Preparando e passando os parâmetros
             PreparedStatement declaracao = ConexaoMySQL.get().prepareStatement(sql);
+            declaracao.setDouble(1,veiculo.getCapacidade());
+            declaracao.setString(2, veiculo.getModelo());
+            declaracao.setString(3, veiculo.getTpveiculo());
+            declaracao.setString(4,veiculo.getAnofb());
+            declaracao.setString(5, veiculo.getDisponivel());
+            declaracao.setDouble(6,veiculo.getQuilometragem());
+            declaracao.setDate(7,java.sql.Date.valueOf(veiculo.getManutencao()));
+            declaracao.setString(8, veiculo.getUltimaFilialPassagem().getId());
+            declaracao.setString(9, veiculo.getPlaca());
+
 
             return declaracao.executeUpdate() > 0;
 
         } catch (Exception e) {
-            throw new Exception("Erro ao atualizar a veiculo. Tente novamente mais tarde!");
+            e.printStackTrace();
+            throw new Exception("Erro ao atualizar a veiculo. Tente novamente mais tarde!" + e.getMessage());
         }
     }
 
@@ -127,7 +132,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
     public Boolean deletar(String placa) throws Exception {
         try {
             //Comando sql com DELETE
-            String sql = "DELETE FROM filial WHERE id = ?";
+            String sql = "DELETE FROM veiculo WHERE placa = ?";
 
             //Passando o id para o WHERE
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
@@ -135,7 +140,8 @@ public class VeiculoDAO implements DAO<Veiculo> {
             return preparacao.executeUpdate() > 0;
 
         } catch (Exception e) {
-            throw new Exception("Erro ao deletar a placa. Por favor, tente novamente mais tarde.");
+            e.printStackTrace();
+            throw new Exception("Erro ao deletar a placa. Por favor, tente novamente mais tarde." + e.getMessage());
         }
     }
 
@@ -151,7 +157,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
                     "disponibilidade, " +
                     "manutencao, " +
                     "id_filial " +
-                    "FROM filial";
+                    "FROM filial Where placa = ?";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
             preparacao.setString(1, placa);

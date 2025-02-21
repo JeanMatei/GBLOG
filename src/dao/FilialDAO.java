@@ -107,11 +107,11 @@ public class FilialDAO implements DAO<Filial> {
 
     public Filial selecionarPorId(String id_filial) throws Exception {
         try {
-            String sql = "SELECT" +
+            String sql = "SELECT " +
                     "id_filial, " +
                     "cidade, " +
-                    "estado" +
-                    "FROM filial";
+                    "estado " +
+                    "FROM filial WHERE id_filial = ?";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
             preparacao.setString(1, id_filial);
@@ -120,7 +120,7 @@ public class FilialDAO implements DAO<Filial> {
             //Selecionando todos os atributos e criando uma filial
             if (resultado.next()) {
                 return new Filial(
-                        resultado.getString("id"),
+                        resultado.getString("id_filial"),
                         resultado.getString("cidade"),
                         resultado.getString("estado")
                 );
@@ -129,7 +129,8 @@ public class FilialDAO implements DAO<Filial> {
             }
 
         } catch (Exception e) {
-            throw new Exception("Não foi possível selecionar a filial.");
+            e.printStackTrace();
+            throw new Exception("Não foi possível selecionar a filial." + e.getMessage());
         }
     }
 

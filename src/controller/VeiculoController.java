@@ -2,6 +2,7 @@ package controller;
 
 import service.VeiculoService;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class VeiculoController {
@@ -34,17 +35,27 @@ public class VeiculoController {
     public String inicializarVeiculo(String opcao) throws Exception {
         switch (opcao) {
             case "1":
-                 return veiculoService.inserirVeiculo(null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                 return veiculoService.inserirVeiculo("QBX-0002",
+                         500.00,
+                        "Strada",
+                        "Pick-Up",
+                        "2007",
+                        "Em trânsito",
+                        123.000,
+                         LocalDate.of(2007, 2, 1),
+                         "2");
             case "2":
-                return veiculoService.alterarVeiculo();
+                return veiculoService.alterarVeiculo("QBX-0002"
+                        ,500.00,
+                        "Fiorino",
+                        "Pick-Up",
+                        "2007",
+                        "Em trânsito",
+                        123.000,
+                        LocalDate.of(2007, 2, 1),
+                        "2");
             case "3":
-                return veiculoService.excluirVeiculo(1L);
+                return veiculoService.excluirVeiculo("QBX-0001");
             case "4":
                 return veiculoService.listarVeiculo();
             case "5":
