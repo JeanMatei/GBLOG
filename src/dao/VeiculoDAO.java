@@ -68,7 +68,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
     public Boolean inserir (Veiculo veiculo) throws Exception {
         try {
             String sql = "INSERT INTO veiculo " +
-                    "(capacidade,modelo,tpveiculo,ano,quilometragem,disponibilidade,manutencao,) VALUES(?,?,?,?,?,?,?)";
+                    "(capacidade,modelo,tpveiculo,ano,quilometragem,disponibilidade,manutencao) VALUES(?,?,?,?,?,?,?)";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
            preparacao.setDouble(1,veiculo.getCapacidade());
@@ -127,7 +127,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
     public Boolean deletar(String placa) throws Exception {
         try {
             //Comando sql com DELETE
-            String sql = "DELETE FROM filial WHERE id = ?";
+            String sql = "DELETE FROM veiculo WHERE id = ?";
 
             //Passando o id para o WHERE
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
