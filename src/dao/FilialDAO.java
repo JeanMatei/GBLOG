@@ -105,7 +105,12 @@ public class FilialDAO implements DAO<Filial> {
             }
         }
 
-    public Filial selecionarPorId(String id_filial) throws Exception {
+    @Override
+    public Filial selecionarPorId(String id) throws Exception {
+        return null;
+    }
+
+    public Filial selecionarFilialPorId(String id_filial) throws Exception {
         try {
             String sql = "SELECT " +
                     "id_filial, " +
@@ -132,6 +137,9 @@ public class FilialDAO implements DAO<Filial> {
             e.printStackTrace();
             throw new Exception("Não foi possível selecionar a filial." + e.getMessage());
         }
+    }
+    public String selecionarPorId() {
+        return "";
     }
 
 }

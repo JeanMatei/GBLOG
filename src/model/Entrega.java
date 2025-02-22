@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Entrega {
     private String cdEntrega;
@@ -12,12 +13,12 @@ public class Entrega {
     private Double ptcarga;
     private Veiculo veiculo; // Veículo designado
     private String status;
-    private Date saida;
-    private Date chegada;
+    private LocalDate saida;
+    private LocalDate chegada;
 
     public Entrega() {}
 
-    public Entrega(Filial origem, Filial destino, String nmCliente, String nmDestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, Date saida, Date chegada) {
+    public Entrega(Filial origem, Filial destino, String nmCliente, String nmDestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, LocalDate saida, LocalDate chegada) {
         this.origem = origem;
         this.destino = destino;
         this.nmCliente = nmCliente;
@@ -30,7 +31,7 @@ public class Entrega {
         this.chegada = chegada;
     }
 
-    public Entrega(String cdEntrega, Filial origem, Filial destino, String nmCliente, String nmDestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, Date saida, Date chegada) {
+    public Entrega(String cdEntrega, Filial origem, Filial destino, String nmCliente, String nmDestinatario, String descricao, Double ptcarga, Veiculo veiculo, String status, LocalDate saida, LocalDate chegada) {
         this.cdEntrega = cdEntrega;
         this.origem = origem;
         this.destino = destino;
@@ -116,19 +117,19 @@ public class Entrega {
         this.status = statusentrega;
     }
 
-    public Date getSaida() {
+    public LocalDate getSaida() {
         return saida;
     }
 
-    public void setSaida(Date saida) {
+    public void setSaida(LocalDate saida) {
         this.saida = saida;
     }
 
-    public Date getChegada() {
+    public LocalDate getChegada() {
         return chegada;
     }
 
-    public void setChegada(Date chegada) {
+    public void setChegada(LocalDate chegada) {
         this.chegada = chegada;
     }
 

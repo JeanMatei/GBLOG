@@ -87,8 +87,8 @@ public class EntregaDAO {
                         resultado.getDouble("e.peso"),
                         veiculo,
                         resultado.getString("e.statusEntrega"),
-                        resultado.getDate("e.dataHoraSaida"),
-                        resultado.getDate("e.dataHoraChegada")
+                        resultado.getDate("e.dataHoraSaida").toLocalDate(),
+                        resultado.getDate("e.dataHoraChegada").toLocalDate()
 
                 );
 
@@ -108,7 +108,8 @@ public class EntregaDAO {
     public Boolean inserir(Entrega entrega) throws Exception {
         try {
             String sql = "INSERT INTO entrega " +
-                    "(cdEntrega,nomecliente,nomedestinatario,descricaocarga,peso,status,datahorasaida,datahorachegada,id_filial_origem, id_filial_destino, placa) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                    "(cdEntrega,nomeCliente,nomeDestinatario,descricaocarga,peso,statusEntrega,dataHoraSaida,dataHoraChegada,id_filial, id_filial, placa) " +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparacao.setString(1, entrega.getCdEntrega());
@@ -117,8 +118,8 @@ public class EntregaDAO {
             preparacao.setString(4, entrega.getDescricao());
             preparacao.setDouble(5, entrega.getPtcarga());
             preparacao.setString(6, entrega.getStatusentrega());
-            preparacao.setDate(7, entrega.getSaida());
-            preparacao.setDate(8, entrega.getChegada());
+            preparacao.setDate(7, java.sql.Date.valueOf(entrega.getSaida()));
+            preparacao.setDate(8, java.sql.Date.valueOf(entrega.getChegada()));
             preparacao.setString(9, entrega.getOrigem().getId());
             preparacao.setString(10, entrega.getDestino().getId());
             preparacao.setString(11, entrega.getVeiculodes().getPlaca());
@@ -170,8 +171,8 @@ public class EntregaDAO {
             declaracao.setString(2,entrega.getNmdestinatario());
             declaracao.setString(3,entrega.getDescricao());
             declaracao.setDouble(4, entrega.getPtcarga());
-            declaracao.setDate(5,entrega.getSaida());
-            declaracao.setDate(6,entrega.getChegada());
+            declaracao.setDate(5,java.sql.Date.valueOf(entrega.getSaida()));
+            declaracao.setDate(6,java.sql.Date.valueOf(entrega.getChegada()));
 
             return declaracao.executeUpdate() > 0;
 
@@ -200,17 +201,17 @@ public class EntregaDAO {
         try {
             String sql = "SELECT " +
                     "e.cdEntrega, " +
-                    "e.origem, " +
-                    "e.destino," +
-                    "e.nmCliente, " +
-                    "e.nmDestinatario, " +
-                    "e.descricao, " +
-                    "e.ptcarga " +
-                    "e.veiculo" +
-                    "e.status" +
-                    "e.saida" +
-                    "e.chegada" +
-                    "e.id_filial" +
+                    "e.id_filial, " +
+                    "e.id_filial," +
+                    "e.nomeCliente, " +
+                    "e.nomeDestinatario, " +
+                    "e.descricaoCarga, " +
+                    "e.peso, " +
+                    "e.placa," +
+                    "e.status," +
+                    "e.saida," +
+                    "e.chegada," +
+                    "e.id_filial," +
                     "e.placa" +
                     "FROM entrega WHERE e.placa = ?";
 
@@ -230,8 +231,8 @@ public class EntregaDAO {
                         resultado.getDouble("manutencao"),
                         new Veiculo(),
                         resultado.getString("status"),
-                        resultado.getDate("saida"),
-                        resultado.getDate("chegada")
+                        resultado.getDate("saida").toLocalDate(),
+                        resultado.getDate("chegada").toLocalDate()
 
                 );
             } else {

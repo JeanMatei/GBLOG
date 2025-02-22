@@ -20,7 +20,7 @@ public class Principal {
         VeiculoDAO veiculoDAO = new VeiculoDAO(filialDAO);
         EntregaDAO entregaDAO = new EntregaDAO();
 
-        EntregaService entregaService = new EntregaService(entregaDAO);
+        EntregaService entregaService = new EntregaService(entregaDAO, filialDAO, veiculoDAO);
         VeiculoService veiculoService = new VeiculoService(veiculoDAO, filialDAO);
         FilialService filialService = new FilialService(filialDAO);
 

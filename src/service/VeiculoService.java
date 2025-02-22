@@ -17,7 +17,7 @@ public class VeiculoService {
     }
 
     public String inserirVeiculo(String placa, Double capacidade , String modelo, String tipoVeiculo, String ano, String disponibilidade, Double quilometragem, LocalDate manutencao, String idFilial) throws Exception {
-        Filial filial = filialDAO.selecionarPorId(idFilial);
+        Filial filial = filialDAO.selecionarFilialPorId(idFilial);
         Veiculo veiculo = new Veiculo(placa, capacidade, modelo, tipoVeiculo, ano, disponibilidade, quilometragem, manutencao, filial);
         if (veiculoDAO.inserir(veiculo)) {
             return "Veiculo cadastrado com sucesso!";
@@ -47,7 +47,7 @@ public class VeiculoService {
     }
 
     public String alterarVeiculo(String placa, Double capacidade , String modelo, String tipoVeiculo, String ano, String disponibilidade, Double quilometragem, LocalDate manutencao, String idFilial) throws Exception {
-        Filial filial = filialDAO.selecionarPorId(idFilial);
+        Filial filial = filialDAO.selecionarFilialPorId(idFilial);
         Veiculo veiculo = new Veiculo(placa, capacidade, modelo, tipoVeiculo, ano, disponibilidade, quilometragem, manutencao, filial);
         if (veiculoDAO.atualizar(veiculo)) {
             return "Veículo alterado com sucesso!";

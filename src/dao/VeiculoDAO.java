@@ -151,13 +151,13 @@ public class VeiculoDAO implements DAO<Veiculo> {
                     "placa, " +
                     "capacidade, " +
                     "modelo, " +
-                    "tpveiculo, " +
+                    "tipo, " +
                     "ano, " +
-                    "quilometragem, " +
-                    "disponibilidade, " +
-                    "manutencao, " +
+                    "quilometragematual, " +
+                    "situacao, " +
+                    "dataUltimaManutencao, " +
                     "id_filial " +
-                    "FROM filial Where placa = ?";
+                    "FROM veiculo Where placa = ?";
 
             PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
             preparacao.setString(1, placa);
@@ -171,19 +171,20 @@ public class VeiculoDAO implements DAO<Veiculo> {
                 return new Veiculo(
                         resultado.getDouble("capacidade"),
                         resultado.getString("modelo"),
-                        resultado.getString("tpveiculo"),
+                        resultado.getString("tipo"),
                         resultado.getString("ano"),
-                        resultado.getString("disponibilidade"),
-                        resultado.getDouble("quilometragem"),
+                        resultado.getString("situacao"),
+                        resultado.getDouble("quilometragematual"),
                         resultado.getDate("manutencao").toLocalDate(),
-                        new Filial()
+                        filialDAO.selecionarFilialPorId(resultado.getString("id_filial"))
                 );
             } else {
                 return null;
             }
 
         } catch (Exception e) {
-            throw new Exception("Não foi possível selecionar a veiculo.");
+            e.printStackTrace();
+            throw new Exception("Não foi possível selecionar o veiculo." + e.getMessage());
         }
     }
 
