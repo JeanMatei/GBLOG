@@ -29,7 +29,7 @@ public class Principal {
         VeiculoController veiculoController = new VeiculoController(veiculoService);
         FilialController filialController = new FilialController(filialService);
 
-        Controller controller = new Controller(filialController, entregaController, veiculoController);
+        Controller controller = new Controller(filialController, entregaController, veiculoController, entregaService);
         controller.selecionarFuncionalidade();
 
 

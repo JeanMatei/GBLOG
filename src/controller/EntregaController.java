@@ -62,8 +62,8 @@ public class EntregaController {
                         12.0,
                         "QBT-0345",
                         "Entregue",
-                        LocalDate.of(2000,12,02),
-                        LocalDate.of(2000, 12, 10)
+                        LocalDate.of(2000,1,02),
+                        LocalDate.of(2000, 12, 30)
                 );
             case "3":
                 return entregaService.excluirEntrega("30f86d4126034488a5cebd939bef6b4b");

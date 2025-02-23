@@ -104,4 +104,16 @@ public class EntregaService {
         return entrega.toString();
     }
 
+    public String gerarRelatorioEntrega(LocalDate dataInicio, LocalDate dataFim) throws Exception {
+        ArrayList<Entrega> entregasEntregues = entregaDAO.gerarRelatorio(dataInicio, dataFim);
+        if (entregasEntregues.size() == 0) {
+            return "Nenhuma entrega encontrada.";
+        }
+
+        for (Entrega entrega : entregasEntregues) {
+            return entrega.toString();
+        }
+        return "Nenhuma entrega encontrada.";
+    }
+
 }

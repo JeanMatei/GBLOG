@@ -1,7 +1,9 @@
 package controller;
 
 import model.Filial;
+import service.EntregaService;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Controller {
@@ -9,11 +11,13 @@ public class Controller {
     private final FilialController filialController;
     private final EntregaController entregaController;
     private final VeiculoController veiculoController;
+    private final EntregaService entregaService;
 
-    public Controller(FilialController filialController, EntregaController entregaController, VeiculoController veiculoController) {
+    public Controller(FilialController filialController, EntregaController entregaController, VeiculoController veiculoController, EntregaService entregaService) {
         this.filialController = filialController;
         this.entregaController = entregaController;
         this.veiculoController = veiculoController;
+        this.entregaService = entregaService;
     }
 
     public void selecionarFuncionalidade() throws Exception {
@@ -45,7 +49,10 @@ public class Controller {
                 break;
             case "4":
                 // Implementar relatórios
-                System.out.println("Funcionalidade de relatórios não implementada");
+                entregaService.gerarRelatorioEntrega(
+                        LocalDate.of(2000, 12, 1),
+                        LocalDate.of(2000, 12, 30)
+                );
                 break;
             case "5":
                 System.out.println("Saindo do sistema...");

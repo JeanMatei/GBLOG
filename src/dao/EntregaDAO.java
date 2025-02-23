@@ -247,9 +247,9 @@ public class EntregaDAO {
                     "descricaoCarga, " +
                     "peso, " +
                     "placa, " +
-                    "statusEntrega, " + // Corrigido para match com o nome da coluna no banco
-                    "dataHoraSaida, " + // Corrigido para match com o nome da coluna no banco
-                    "dataHoraChegada " + // Corrigido para match com o nome da coluna no banco
+                    "statusEntrega, " +
+                    "dataHoraSaida, " +
+                    "dataHoraChegada " +
                     "FROM entrega " +
                     "WHERE cdentrega = ?";
 
@@ -290,5 +290,63 @@ public class EntregaDAO {
         }
     }
 
+    public ArrayList<Entrega> gerarRelatorio(LocalDate dataInicio, LocalDate dataFim) throws Exception {
+        try {
+            String sql = "SELECT " +
+                    "cdentrega, " +
+                    "nomeCliente, " +
+                    "nomeDestinatario, " +
+                    "descricaoCarga, " +
+                    "peso, " +
+                    "placa, " +
+                    "statusEntrega, " +
+                    "dataHoraSaida, " +
+                    "dataHoraChegada, " +
+                    "id_filial_origem, " +
+                    "id_filial_destino " +
+                    "FROM entrega " +
+                    "WHERE statusEntrega = 'Entregue' " +
+                    "AND dataHoraChegada BETWEEN ? AND ?";
+
+            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql);
+            preparacao.setDate(1, java.sql.Date.valueOf(dataInicio)); // Data de início
+            preparacao.setDate(2, java.sql.Date.valueOf(dataFim)); // Data de fim
+
+            ResultSet resultado = preparacao.executeQuery();
+
+            ArrayList<Entrega> entregas = new ArrayList<>();
+            while (resultado.next()) {
+                // Recupera as filiais de origem e destino
+                Filial filialOrigem = filialDAO.selecionarFilialPorId(resultado.getString("id_filial_origem"));
+                Filial filialDestino = filialDAO.selecionarFilialPorId(resultado.getString("id_filial_destino"));
+
+                // Recupera o veículo
+                Veiculo veiculo = veiculoDAO.selecionarPorId(resultado.getString("placa"));
+
+                // Cria a entrega
+                Entrega entrega = new Entrega(
+                        resultado.getString("cdentrega"),
+                        filialOrigem,
+                        filialDestino,
+                        resultado.getString("nomeCliente"),
+                        resultado.getString("nomeDestinatario"),
+                        resultado.getString("descricaoCarga"),
+                        resultado.getDouble("peso"),
+                        veiculo,
+                        resultado.getString("statusEntrega"),
+                        resultado.getDate("dataHoraSaida").toLocalDate(),
+                        resultado.getDate("dataHoraChegada").toLocalDate()
+                );
+
+                entregas.add(entrega);
+            }
+
+            return entregas;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Erro ao listar entregas entregues por período: " + e.getMessage());
+        }
+    }
 
 }
