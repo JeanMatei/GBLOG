@@ -28,7 +28,6 @@ public class EntregaService {
 
     public String listarEntrega() throws Exception {
         ArrayList<Entrega> entregas = entregaDAO.selecionar();
-        System.out.println("Entrou aqui");
         StringBuilder sb = new StringBuilder();
         if (entregas.size() > 0) {
             sb.append("LISTA DE ENTREGAS\n");
@@ -45,9 +44,20 @@ public class EntregaService {
                                  LocalDate saida, LocalDate chegada) throws Exception {
 
         Filial filialOrigem = filialDAO.selecionarFilialPorId(idFilialOrigem);
+        if (filialOrigem == null) {
+            throw new Exception("Filial de origem com ID: " + idFilialOrigem + " não encontrada.");
+        }
         Filial filialDestino = filialDAO.selecionarFilialPorId(idFilialDestino);
+        if (filialDestino == null) {
+            throw new Exception("Filial de destino com ID: " + idFilialDestino + " não encontrada.");
+        }
         Veiculo veiculo = veiculoDAO.selecionarPorId(placaVeiculo);
+        if (veiculo == null) {
+            throw new Exception("Veículo com a placa: " + placaVeiculo + " não encontrada.");
+        }
         Entrega entrega = new Entrega(filialOrigem, filialDestino, nmCliente, nmDestinatario, descricao, pesoCarga, veiculo, status, saida, chegada );
+
+
         if (entregaDAO.inserir(entrega)) {
             return "Entrega cadastrada com sucesso.";
         } else {
@@ -55,13 +65,43 @@ public class EntregaService {
         }
     }
 
-    public String excluirEntrega(Long idEntrega) {
-        return "";
+    public String excluirEntrega(String idEntrega) throws Exception {
+        if (entregaDAO.deletar(idEntrega)) {
+            return "Entrega excluída com sucesso.";
+        } else {
+            return "Erro ao excluir entrega.";
+        }
+
     }
 
-    public String alterarEntrega() {
-        return "";
+    public String alterarEntrega(String cdentrega, String idFilialOrigem, String idFilialDestino, String nmCliente, String nmDestinatario, String descricao, Double pesoCarga, String placaVeiculo, String status,
+                LocalDate saida, LocalDate chegada) throws Exception {
+
+            Filial filialOrigem = filialDAO.selecionarFilialPorId(idFilialOrigem);
+            if (filialOrigem == null) {
+                throw new Exception("Filial de origem com ID: " + idFilialOrigem + " não encontrada.");
+            }
+            Filial filialDestino = filialDAO.selecionarFilialPorId(idFilialDestino);
+            if (filialDestino == null) {
+                throw new Exception("Filial de destino com ID: " + idFilialDestino + " não encontrada.");
+            }
+            Veiculo veiculo = veiculoDAO.selecionarPorId(placaVeiculo);
+            if (veiculo == null) {
+                throw new Exception("Veículo com a placa: " + placaVeiculo + " não encontrada.");
+            }
+            Entrega entrega = new Entrega(cdentrega,filialOrigem, filialDestino, nmCliente, nmDestinatario, descricao, pesoCarga, veiculo, status, saida, chegada );
+
+
+            if (entregaDAO.atualizar(entrega)) {
+                return "Entrega cadastrada com sucesso.";
+            } else {
+                return "Erro ao cadastrar entrega.";
+            }
     }
 
+    public String rastrearEntrega(String idEntrega) throws Exception {
+        Entrega entrega = entregaDAO.selecionarPorId(idEntrega);
+        return entrega.toString();
+    }
 
 }

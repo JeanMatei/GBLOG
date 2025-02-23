@@ -35,7 +35,7 @@ public class VeiculoController {
     public String inicializarVeiculo(String opcao) throws Exception {
         switch (opcao) {
             case "1":
-                 return veiculoService.inserirVeiculo("QBX-0002",
+                 return veiculoService.inserirVeiculo("QBX-0321",
                          500.00,
                         "Strada",
                         "Pick-Up",

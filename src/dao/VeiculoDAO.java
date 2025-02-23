@@ -1,5 +1,6 @@
 package dao;
 import connection.ConexaoMySQL;
+import model.Entrega;
 import model.Filial;
 import model.Veiculo;
 
@@ -67,6 +68,8 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
     public Boolean inserir (Veiculo veiculo) throws Exception {
         try {
+            Entrega entrega = new Entrega();
+            entrega.setVeiculodes(veiculo);
             String sql = "INSERT INTO veiculo " +
                     "(placa, capacidade,modelo,tipo,ano,situacao,quilometragematual,dataUltimaManutencao, id_filial) VALUES(?,?,?,?,?,?,?,?,?)";
            PreparedStatement preparacao = ConexaoMySQL.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -175,7 +178,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
                         resultado.getString("ano"),
                         resultado.getString("situacao"),
                         resultado.getDouble("quilometragematual"),
-                        resultado.getDate("manutencao").toLocalDate(),
+                        resultado.getDate("dataUltimaManutencao").toLocalDate(),
                         filialDAO.selecionarFilialPorId(resultado.getString("id_filial"))
                 );
             } else {

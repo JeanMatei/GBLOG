@@ -2,6 +2,7 @@ package service;
 
 import dao.FilialDAO;
 import dao.VeiculoDAO;
+import model.Entrega;
 import model.Filial;
 import model.Veiculo;
 
@@ -19,6 +20,17 @@ public class VeiculoService {
     public String inserirVeiculo(String placa, Double capacidade , String modelo, String tipoVeiculo, String ano, String disponibilidade, Double quilometragem, LocalDate manutencao, String idFilial) throws Exception {
         Filial filial = filialDAO.selecionarFilialPorId(idFilial);
         Veiculo veiculo = new Veiculo(placa, capacidade, modelo, tipoVeiculo, ano, disponibilidade, quilometragem, manutencao, filial);
+
+        Entrega entrega = new Entrega();
+        entrega.setVeiculodes(veiculo); // Associe o veículo à entrega
+
+        // Verifique se o veículo foi associado corretamente
+        if (entrega.getVeiculodes() == null) {
+            System.out.println("Erro: Veículo não foi associado à entrega!");
+        } else {
+            System.out.println("Veículo associado: " + entrega.getVeiculodes().getPlaca());
+        }
+
         if (veiculoDAO.inserir(veiculo)) {
             return "Veiculo cadastrado com sucesso!";
         } else {
