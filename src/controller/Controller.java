@@ -48,11 +48,10 @@ public class Controller {
                 filialController.selecionarFuncionalidadeFilial();
                 break;
             case "4":
-                // Implementar relatórios
-                entregaService.gerarRelatorioEntrega(
-                        LocalDate.of(2000, 12, 1),
-                        LocalDate.of(2000, 12, 30)
-                );
+                System.out.println(entregaService.gerarRelatorioEntrega(
+                        LocalDate.of(2000, 1, 1),
+                        LocalDate.of(2001, 12, 31)
+                ));
                 break;
             case "5":
                 System.out.println("Saindo do sistema...");

@@ -12,6 +12,7 @@ import model.Veiculo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -106,14 +107,22 @@ public class EntregaService {
 
     public String gerarRelatorioEntrega(LocalDate dataInicio, LocalDate dataFim) throws Exception {
         ArrayList<Entrega> entregasEntregues = entregaDAO.gerarRelatorio(dataInicio, dataFim);
+        long totalDias = ChronoUnit.DAYS.between(dataInicio, dataFim);
+        int totalEntregas = entregasEntregues.size();
+        Double media =  totalEntregas / Double.parseDouble(String.valueOf(totalDias));
+
+        StringBuilder sb = new StringBuilder();
         if (entregasEntregues.size() == 0) {
             return "Nenhuma entrega encontrada.";
         }
-
         for (Entrega entrega : entregasEntregues) {
-            return entrega.toString();
+            sb.append(entrega).append('\n');
         }
-        return "Nenhuma entrega encontrada.";
+
+        sb.append("Total de dias: ").append(totalDias).append('\n');
+        sb.append("Total de entregas: ").append(totalEntregas).append('\n');
+        sb.append("Média de entregas feitas no período: ").append(media).append("\n");
+        return sb.toString();
     }
 
 }

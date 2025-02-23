@@ -337,7 +337,6 @@ public class EntregaDAO {
                         resultado.getDate("dataHoraSaida").toLocalDate(),
                         resultado.getDate("dataHoraChegada").toLocalDate()
                 );
-
                 entregas.add(entrega);
             }
 

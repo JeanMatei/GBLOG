@@ -32,7 +32,7 @@ public class EntregaController {
             opcao = scanner.nextLine();
             String resultado = inicializarEntrega(opcao);
             System.out.println(resultado + "\n");
-        } while (!opcao.equals("5"));
+        } while (!opcao.equals("6"));
     }
 
     public String inicializarEntrega(String opcao) throws Exception {
@@ -40,16 +40,16 @@ public class EntregaController {
             case "1":
                 return
                 entregaService.inserirEntrega(
-                        "1",
+                        "3",
                         "2",
-                        "João Neto da Silva",
-                        "Maria de Lourdes Pacheco",
+                        "José Vitor",
+                        "Gabriel Barbosa",
                         "Carga frágil",
                         12.6,
                         "QBT-0345",
-                        "Em andamento",
-                        LocalDate.of(2000,12,02),
-                        LocalDate.of(2000, 12, 10)
+                        "Entregue",
+                        LocalDate.of(2000, 3, 2),
+                        LocalDate.of(2000, 3, 10)
                 );
             case "2":
                 return entregaService.alterarEntrega(
@@ -66,13 +66,20 @@ public class EntregaController {
                         LocalDate.of(2000, 12, 30)
                 );
             case "3":
-                return entregaService.excluirEntrega("30f86d4126034488a5cebd939bef6b4b");
+                Scanner scanner = new Scanner(System.in);
+                String idEntrega;
+                System.out.println("ID da entrega a ser removida: ");
+                idEntrega = scanner.nextLine();
+                return entregaService.excluirEntrega(idEntrega);
             case "4":
                 return entregaService.listarEntrega();
             case "5":
-                return entregaService.rastrearEntrega("32r2fa");
+                return entregaService.rastrearEntrega("B0048E");
+            case "6" :
+                break;
             default:
                 return "Opção inválida!";
         }
+        return "";
     }
 }
