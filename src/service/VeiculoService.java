@@ -68,5 +68,10 @@ public class VeiculoService {
         }
     }
 
+    public String rastrearVeiculo(String placa) throws Exception {
+        Veiculo veiculo = veiculoDAO.selecionarPorId(placa);
+        return veiculo.toString();
+    }
+
 
 }

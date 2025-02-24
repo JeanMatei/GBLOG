@@ -285,8 +285,7 @@ public class EntregaDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Não foi possível selecionar a entrega: " + e.getMessage());
+            throw new Exception("Não foi possível selecionar a entrega.");
         }
     }
 

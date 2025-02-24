@@ -1,5 +1,6 @@
 package controller;
 
+import dao.VeiculoDAO;
 import service.VeiculoService;
 
 import java.time.LocalDate;
@@ -22,14 +23,15 @@ public class VeiculoController {
                             "2 - Alterar Veículo %n" +
                             "3 - Remover Veículo %n" +
                             "4 - Listar Veículo %n" +
-                            "5 - Sair %n" +
+                            "5 - Buscar Veículo %n" +
+                            "6 - Sair %n" +
                             "Opção: ");
 
             opcao = scanner.nextLine();
             String resultado = inicializarVeiculo(opcao);
             System.out.println("\n" + resultado + "\n");
 
-        } while (!opcao.equals("5"));
+        } while (!opcao.equals("6"));
     }
 
     public String inicializarVeiculo(String opcao) throws Exception {
@@ -45,7 +47,7 @@ public class VeiculoController {
                          LocalDate.of(2007, 2, 1),
                          "2");
             case "2":
-                return veiculoService.alterarVeiculo("QBX-0002"
+                return veiculoService.alterarVeiculo("QBT-0345"
                         ,500.00,
                         "Fiorino",
                         "Pick-Up",
@@ -59,6 +61,8 @@ public class VeiculoController {
             case "4":
                 return veiculoService.listarVeiculo();
             case "5":
+                return veiculoService.rastrearVeiculo("QBT-0002");
+            case "6":
                 break;
         }
         return "";

@@ -46,8 +46,8 @@ public class EntregaController {
                         "Gabriel Barbosa",
                         "Carga frágil",
                         12.6,
-                        "QBT-0345",
-                        "Entregue",
+                        "QBT-0002",
+                        "Em andamento",
                         LocalDate.of(2000, 3, 2),
                         LocalDate.of(2000, 3, 10)
                 );
@@ -60,7 +60,7 @@ public class EntregaController {
                         "Destinatario de Teste",
                         "Carga leve",
                         12.0,
-                        "QBT-0345",
+                        "QBT-0002",
                         "Entregue",
                         LocalDate.of(2000,1,02),
                         LocalDate.of(2000, 12, 30)
@@ -74,7 +74,7 @@ public class EntregaController {
             case "4":
                 return entregaService.listarEntrega();
             case "5":
-                return entregaService.rastrearEntrega("B0048E");
+                return entregaService.rastrearEntrega("F35D9D");
             case "6" :
                 break;
             default:

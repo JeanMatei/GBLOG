@@ -170,7 +170,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
             //Selecionando todos os atributos e criando uma filial
             if (resultado.next()) {
-
+                Filial filial = filialDAO.selecionarFilialPorId(resultado.getString("id_filial"));
                 return new Veiculo(
                         resultado.getString("placa"),
                         resultado.getDouble("capacidade"),
@@ -180,9 +180,10 @@ public class VeiculoDAO implements DAO<Veiculo> {
                         resultado.getString("situacao"),
                         resultado.getDouble("quilometragematual"),
                         resultado.getDate("dataUltimaManutencao").toLocalDate(),
-                        filialDAO.selecionarFilialPorId(resultado.getString("id_filial"))
+                        filial
                 );
             } else {
+                System.out.println("Não há nenhum veículo com a placa " + placa + " no banco de dados. Tente novamente mais tarde.");
                 return null;
             }
 
